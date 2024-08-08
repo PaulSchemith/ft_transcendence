@@ -1,0 +1,14 @@
+Django==3.2.4
+djangorestframework
+psycopg2 # for postgres
+djangorestframework-simplejwt==4.6
+Pillow # for image upload
+django-cors-headers # for cors
+twilio # for sms
+phonenumbers # for phone number validation
+pyotp # for otp application authenticator
+requests-oauthlib # for oauth2
+django-prometheus # for prometheus - monitoring
+django-background-tasks # for background tasks
+channels==3.0.3 # for websockets
+channels-redis # for websockets

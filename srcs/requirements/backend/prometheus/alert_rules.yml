@@ -1,0 +1,33 @@
+groups:
+- name: nginx_alerts
+  rules:
+  - alert: NginxHighHttpRequestRate
+    expr: rate(nginx_http_requests_total[1m]) > 100
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Taux élevé de requêtes HTTP sur Nginx ({{ $labels.instance }})"
+      description: "Nginx {{ $labels.instance }} a un taux de requêtes HTTP supérieur à 100 par minute."
+
+- name: django_api_alerts
+  rules:
+  - alert: DjangoApiHighResponseTime
+    expr: histogram_quantile(0.95, rate(django_http_responses_latency_seconds_bucket[5m])) > 0.5
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Latence élevée sur l'API Django ({{ $labels.instance }})"
+      description: "95% des requêtes sur l'API Django {{ $labels.instance }} ont une latence supérieure à 0.5 secondes."
+
+- name: postgresql_alerts
+  rules:
+  - alert: PostgresqlHighConnectionCount
+    expr: pg_stat_activity_count > 100
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Nombre élevé de connexions PostgreSQL ({{ $labels.instance }})"
+      description: "Le nombre de connexions actives à PostgreSQL {{ $labels.instance }} dépasse 100."

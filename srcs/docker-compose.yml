@@ -1,0 +1,138 @@
+services:
+  django:
+    image: django:v1
+    container_name: django_container
+    build: ./requirements/backend/django
+    restart: on-failure
+    command: >
+      sh -c "python manage.py makemigrations account &&
+             python manage.py makemigrations friend_management &&
+             python manage.py makemigrations chat &&
+             python manage.py makemigrations game &&
+             python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py shell < create_superuser.py &&
+             python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    ports:
+     - "8000:8000"
+    volumes:
+      - ./requirements/backend/django/ft_transcendence:/app
+    networks:
+     - pong
+    env_file: .env
+
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    restart: always
+    ports:
+      - "6380:6379"
+    networks:
+        - pong
+    env_file: .env
+
+  postgresql:
+    image: postgres:15.5
+    container_name: postgresql_container
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - pong
+    volumes:
+      - ./requirements/backend/postgresql/DB/:/var/lib/postgresql/data
+    env_file: .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_container
+    restart: always
+    ports:
+      - ${SITE_PORT}:${SITE_PORT}
+      #- "443:443"
+    networks:
+      - pong
+    volumes:
+        - ./requirements/frontend/nginx/conf/nginx.conf:/etc/nginx/conf.d/default.conf
+        - ./requirements/frontend/nginx/utils/:/usr/share/nginx/html
+        - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - django
+      - prometheus
+      - grafana
+    env_file: .env
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus_container
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./requirements/backend/prometheus/:/etc/prometheus/
+    networks:
+      - pong
+    env_file: .env
+
+  grafana:
+    image: grafana:v1
+    container_name: grafana_container
+    build: ./requirements/backend/grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - pong
+    env_file: .env
+
+  postgresql_exporter:
+    image: wrouesnel/postgres_exporter
+    container_name: postgresql_exporter_container
+    restart: always
+    ports:
+      - "9187:9187"
+    depends_on:
+      - postgresql
+    volumes:
+      - ./requirements/backend/postgresql/postgresql_exporter/custom-metrics.yml:/custom-metrics.yml
+    networks:
+      - pong
+    env_file: .env
+
+  nginx_exporter:
+    image: nginx/nginx-prometheus-exporter
+    container_name: nginx_exporter_container
+    command:
+      - '--nginx.scrape-uri=${SITE_PROTOCOL}nginx_container:${SITE_PORT}/nginx_status/'
+    depends_on:
+      - nginx
+    restart: always
+    ports:
+      - "9113:9113"
+    networks:
+      - pong
+    env_file: .env
+
+
+networks:
+  pong:
+    name: pong
+    driver: bridge
+
+
+# volumes:
+#   DB:
+#     name: DB
+#     driver: local
+#     driver_opts:
+#       type: 'none'
+#       o: 'bind'
+#       device: 'requirements/backend/postgresql/DB/'

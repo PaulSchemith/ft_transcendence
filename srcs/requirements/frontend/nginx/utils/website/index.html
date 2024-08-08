@@ -1,0 +1,908 @@
+f<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ft_transcendence - 42</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+  <!-- Style -->
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+  <!-- Custom fonts for this template-->
+  <!-- <link href="dashboard/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
+  <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <!-- <link href="dashboard/sb-admin-2.min.css" rel="stylesheet"> -->
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/img/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+</head>
+
+
+<body style="background-color:rgb(94, 94, 94);">
+
+  <!-- Alert Logout ------------------------------------>
+  <div id="alert-bg-blur" class="hidden-element fade-in">
+      <div id="confirm-logout" class="fade-in p-3 p-md-5 bg-info shadow-lg rounded-4 " style="position: fixed; top: 25%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+        <button id="cancelLogout" class="btn fw-bold shadow  btn-outline-light me-2">X</button>
+        <button id="validLogout" class="btn fw-bold shadow  btn-outline-light">logout</button>
+      </div>
+  </div>
+
+
+  <header id="header" class="pb-5 mb-1">
+    <nav id="navbar" class="navbar navbar-expand-md fixed-top navbar-dark bg-info py-1">
+      <div class="container" style="min-height: 45px">
+        <button class="btn p-0 border-0 mt-1 bagelFatOne" onclick="showSection('main')"><h5 class="custom-icon-headerFooter fw-bold fs-4">ft_transcendence</h5></button>
+
+        <button class="navbar-toggler border-0 fa-solid fa-bars" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <!-- <span class="navbar-toggler-icon"></span> -->
+          <!-- <i class="fa-solid fa-bars"></i> -->
+          <!-- <i class="fas fa-poo fa-2x text-danger"></i> -->
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <!-- DropDown Profile -->
+            <li id="dropDownProfile" class="nav-item dropdown unvisible">
+              <a class="nav-link bi-person-circle custom-icon-headerFooter fs-3 me-2 p-0" href="#" role="toggle" data-bs-toggle="dropdown" aria-expanded="false"></a>
+              <div id="dropdown-menu" class="dropdown-menu bg-info py-0 border-0 fade-in">
+                <div class="card mx-auto pb-3 shadow-lg border-0" style="width: 16rem;">
+                  <img id="avatar-img_profilDropdown" src="" class="card-img-top mx-auto mt-3 shadow rounded" alt="avatar-img" style="width: 100px;">
+                  <div class="card-body">
+                    <h4 id="username-profileDropdown" style="font-family: 'Bagel Fat One', sans-serif;" class="card-title text-info text-center text-uppercase mb-3"></h4>
+                    <div style="overflow-y: auto; max-height: 100px;">
+                      <p id="bio-profileDropdown" class="card-text text-center fw-light"></p>
+                    </div>
+                    <div class="col d-flex justify-content-evenly mt-4">
+                      <a class="btn btn-sm btn-outline-info fw-bold bi bi-speedometer" href="#dashboard" onclick="getDashboardInfos()"></a>
+                      <!-- <a class="btn btn-sm btn-outline-info fw-bold bi bi-database-fill" href="#gameHistory"></a> -->
+                      <a class="btn btn-sm btn-outline-info fw-bold bi-person-circle" href="#profile"></a>
+                      <a class="btn btn-sm btn-outline-danger fw-bold bi-plug-fill" onclick="userLogout()"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link fw-bold custom-icon-headerFooter bagelFatOne" href="#gameMenu">Play Pong</a>
+            </li>
+            <li id="nav-signIn" class="nav-item">
+              <a class="nav-link fw-bold custom-icon-headerFooter bagelFatOne" href="#signIn">Sign In</a>
+            </li>
+            <li id="nav-signUp" class="nav-item">
+              <a class="nav-link fw-bold custom-icon-headerFooter bagelFatOne" href="#signUp">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold custom-icon-headerFooter bagelFatOne" href="#aboutTheTeam">About the team</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+  <main>
+
+    <section id="main" class="d-flex justify-content-center fade-in hidden-element">
+      <div class="container p-3 pt-0 bg-white rounded-bottom-4 shadow" style="max-width: 1200px;">
+        <div class="col d-flex justify-content-center mx-4" >
+          <h1 class="display-2 text-info fw-bold mt-3">ft_transcendence</h1>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+          <img class="" style="opacity: 70%; width: 50%;" src="img/img-cartoon.png" alt="img-cartoon">
+        </div>
+        <div class="row">
+          <div class="col-lg-9 p-lg-3 pt-lg-0 my-auto">
+            <!-- <H3 class="display-6 text-center text-md-end  fw-bold py-2">Welcome to ft_transcendence</H3> -->
+            <!-- <div class=""> -->
+              <h5 class="text-center text-secondary fw-bold fs-3 bagelFatOne">The last common core project at school 42</h5>
+            <!-- </div> -->
+            <!-- <div class="ps-lg-4"> -->
+              <p class="fs-5 text-center text-black">The ft_transcendence project is a complex and ambitious endeavor aiming
+                to create an online gaming platform based on table tennis (ping-pong). It is a large-scale project implementing diverse
+                features, ranging from user management to real-time table tennis matches.
+                It is a versatile project that combines aspects of web development, real-time functionality, and tournament management
+                to craft an immersive and competitive online gaming experience centered around table tennis. It challenges students' skills
+                in software development, database design, security, and the integration of modern technologies.
+              </p>
+            <!-- </div> -->
+          </div>
+
+          <div class="col-lg-3 p-3 pt-0 pt-lg-2">
+            <div class="col d-flex justify-content-center pt-lg-2 mb-3">
+              <a class="btn btn-info fw-bold shadow fs-4 custom-icon-headerFooter p-4 w-75 bagelFatOne" href="#gameMenu">Play Pong</a>
+            </div>
+
+            <!-- TO HIDE WHEN USER IS CONNECTED -->
+            <div id="signIn-signUp-btn">
+              <div class="col d-flex justify-content-center mb-2">
+                <a class="btn btn-outline-info custom-icon fw-bold shadow p-2 w-75 bagelFatOne" href="#signIn">Sign In</a>
+              </div>
+              <div class="col d-flex justify-content-center mb-2">
+                <a class="btn btn-outline-info custom-icon fw-bold shadow p-2 w-75 bagelFatOne" href="#signUp">Sign Up</a>
+              </div>
+            </div>
+
+            <!-- TO SHOW WHEN USER IS CONNECTED -->
+            <div id="friends-gameHistory-btn" class="unvisible">
+              <div class="col d-flex justify-content-center mb-2">
+                <a class="btn btn-outline-info custom-icon fw-bold shadow p-2 w-75 bagelFatOne" href="#dashboard" onclick="getDashboardInfos()">Dashboard</a>
+              </div>
+              <div class="col d-flex justify-content-center mb-2">
+                <a class="btn btn-outline-info custom-icon fw-bold shadow p-2 w-75 bagelFatOne" href="#profile">Profile</a>
+              </div>
+            </div>
+
+            <div class="col d-flex justify-content-center ">
+              <a class="btn btn-outline-info custom-icon fw-bold shadow p-2 w-75 mb-4 bagelFatOne" href="#aboutTheTeam">About the team</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <section id="gameMenu" class="fade-in hidden-element">
+      <div id="containerGameMenu" class="container bg-white rounded-bottom-4 shadow p-2 pb-4 px-4" style="max-width: 600px;">
+        <h1 class="display-1 fw-bold text-info text-center">Pong</h1>
+        <hr class="text-info">
+
+        <div id='countdown' class="container mt-5 hidden-element">
+          <div class="row justify-content-center">
+              <div class="col">
+                  <h2 id="countdown-text" class="text-info display-3 bagelFatOne text-center">waiting players...</h2>
+              </div>
+          </div>
+      </div>
+
+        <div class="col d-flex justify-content-end p-2">
+          <button type="button" class="btn btn-sm btn-outline-info me-1 bagelFatOne" id="resetBtnUI">reset</button>
+          <button type="button" class="btn btn-sm btn-outline-danger bagelFatOne" id="clBtnUI">quit</button>
+        </div>
+        <div class="col d-flex justify-content-center">
+          <h1 class="text-info display-6">Settings</h1>
+        </div>
+        <hr class="text-info mb-4">
+        <div class="col d-flex justify-content-center m-3">
+          <button type="button" class="btn btn-outline-info mx-2 bagelFatOne" id="localBtn">Local</button>
+          <button type="button" class="btn btn-outline-info bagelFatOne" id="onLineBtn">Online</button>
+        </div>
+        <div id="onlineMenu" class="col d-flex justify-content-center m-3 hidden-element">
+          <button type="button" class="btn btn-outline-info mx-2 bagelFatOne" id="createBtn">Create</button>
+          <button type="button" class="btn btn-outline-info bagelFatOne" id="joinBtn">Join</button>
+        </div>
+        <div id="dificultyMenu" class="col d-flex justify-content-center m-2 hidden-element">
+          <button type="button" class="btn btn-outline-info bagelFatOne" id="easyBtn">Easy</button>
+          <button type="button" class="btn btn-outline-info mx-2 bagelFatOne" id="mediumBtn">Medium</button>
+          <button type="button" class="btn btn-outline-info bagelFatOne" id="hardBtn">Hard</button>
+        </div>
+        <div id="gameModeMenu" class="col d-flex justify-content-center m-3 hidden-element">
+          <button type="button" class="btn btn-outline-info disabled bagelFatOne" id="onePlayerBtn">One Player</button>
+          <button type="button" class="btn btn-outline-info disabled mx-2 bagelFatOne" id="twoPlayersBtn">Two Players</button>
+          <button type="button" class="btn btn-outline-info disabled bagelFatOne" id="tournamentBtn">Tournament</button>
+        </div>
+        <div id="createRoomMenu" class="col d-flex justify-content-center m-3 hidden-element">
+          <button type="button" class="btn btn-outline-info disabled bagelFatOne" id="createRoomBtn">Create Room</button>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="playPong" class="fade-in hidden-element">
+          <div id="gameDiv" class="container bg-info bg-opacity-100 rounded-4 p-2 p-md-3 mt-5 shadow-lg hidden-element" style="max-width: 900px;">
+            <div class="row">
+              <canvas id="pongCanvas" width="1100" height="700" ></canvas>
+            </div>
+            <div class="row mt-4 mb-2 d-flex justify-content-center">
+
+
+              <!-- ctrl mobile left -->
+              <div class="col-4 my-auto hidden-element" id="mobileCtrlLeft">
+                <div class="col d-flex justify-content-center">
+                  <button type="button" role="toggle" class="btn btn-outline-light fw-bold mb-2 rounded-3 w-50" id="upLeftBtn">&uarr;</button>
+                </div>
+                <div class="col d-flex justify-content-center">
+                  <button type="button" role="toggle" class="btn btn-outline-light fw-bold mt-1 rounded-3 w-50" id="dnLeftBtn">&darr;</button>
+                </div>
+              </div>
+
+
+              <!-- text PONG & quit btn -->
+              <div id="pong-ui" class="col-4">
+                <div class="col-12 d-flex justify-content-center">
+                  <h1 class="text-light display-3">PONG</h1>
+                </div>
+                <div id="quitGameBtn-div" class="col-12 d-flex">
+                  <button type="button" class="btn btn-sm btn-outline-light fw-bold mx-auto bagelFatOne" id="quitGameBtn">Quit</button>
+                </div>
+              </div>
+
+
+              <!-- ctrl mobile right -->
+              <div class="col-4 my-auto hidden-element" id="mobileCtrlRight">
+                <div class="col d-flex justify-content-center">
+                  <button type="button" class="btn btn-outline-light fw-bold mb-2 rounded-3 w-50" id="upRightBtn">&uarr;</button>
+                </div>
+                <div class="col d-flex justify-content-center">
+                  <button type="button" class="btn btn-outline-light fw-bold mt-1 rounded-3 w-50" id="dnRightBtn">&darr;</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div id="chat-container_session" class="container bg-light bg-opacity-50 rounded-4 my-3 shadow-lg p-2 hidden-element" style="height: 150px; max-width: 300px;"> -->
+              <!-- <div id="chat-messages_session" class="" style="overflow-y: auto; height: 100px;"></div> -->
+              <!-- <input class="form-control form-control-sm border-info" type="text" id="message-input_session" placeholder="Ecris un chat session..." onkeydown="handleKeyPress(event)"> -->
+
+
+              <!-- <h5 class="text-light fst-italic me-1" onclick="sendMessageSession()" role="button" style="text-shadow: 2px 2px 4px rgba(150, 150, 150, 0.952);">Send</h5> -->
+
+
+              <!-- <button id="send-button_session" class="btn" onclick="sendMessageSession()">Send</button> -->
+            <!-- </div> -->
+          </div>
+          <!-- <div id="surrenderMessage" class="container p-3 mt-5  unvisible" >
+            <h5  class="display-3 fw-bold cl-green text-center ">CCC left the game</h5>
+            <h5  class="display-5 fw-bold cl-green text-center ">You won by forfeit !</h5>
+
+          </div>
+ -->
+
+    </section>
+
+
+    <section id="aboutTheTeam" class="fade-in hidden-element">
+      <div class="container pt-2 pb-5 px-5 bg-white shadow rounded-bottom-4" style="max-width: 1500px;">
+        <h1 class="display-1 fw-bold text-info text-center">The team</h1>
+        <div class="row py-2 d-flex justify-content-evenly">
+
+          <div class="col-12 col-sm-6 col-lg-3 pt-4">
+            <div class="p-3 rounded shadow bg-white">
+
+              <img src="img/img-chris.jpg" alt="img_chris" class="d-block mx-auto m-4 shadow-lg" style="border-radius: 8px; width: 120px;">
+              <h4 class="fw-bold text-center cl-text bagelFatOne">Christophe MASSA</h4>
+
+              <ul class="list-inline text-center fs-3 mb-0">
+                <li class="list-inline-item">
+                  <a class="text-info" href="https://github.com/ChrisDev427" target="_blank" rel="nofollow">
+                    <i class="bi-github custom-icon p-2"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="text-info" href="https://www.linkedin.com/in/christophe-massa-2406b4273/" target="_blank" rel="nofollow">
+                    <i class="bi-linkedin custom-icon p-2"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="text-info" href="mailto:chrisdev427@gmail.com" target="_blank" rel="nofollow">
+                    <i class="bi-envelope-at-fill custom-icon p-2 fs-2"></i>
+                  </a>
+                </li>
+              </ul>
+              <p class="fw-light text-center p-2">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-3 pt-4">
+            <div class="p-3 rounded shadow bg-white">
+
+              <img src="img/img_axel.jpg" alt="img_axel" class="d-block mx-auto m-4 shadow-lg" style="border-radius: 8px; width: 120px;">
+              <h4 class="fw-bold text-center cl-text bagelFatOne">Axel FERNANDEZ</h4>
+              <ul class="list-inline text-center fs-3 mb-0">
+                <li class="list-inline-item">
+                  <a class="text-info" href="https://github.com/AxelFdez" target="_blank" rel="nofollow">
+                    <i class="bi-github custom-icon p-2"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="text-info" href="https://www.linkedin.com/in/axelfernandez06/" target="_blank" rel="nofollow">
+                    <i class="bi-linkedin custom-icon p-2"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="text-info" href="mailto:axe06@hotmail.fr" target="_blank" rel="nofollow">
+                    <i class="bi-envelope-at-fill custom-icon p-2 fs-2"></i>
+                  </a>
+                </li>
+              </ul>
+              <p class="fw-light text-center p-2">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+          <!-- </div> -->
+
+          <!-- <div class="row py-2 mt-4 d-flex justify-content-center"> -->
+
+          <div class="col-12 col-sm-6 col-lg-3 pt-4">
+            <div class="p-3 rounded shadow bg-white">
+
+              <img src="img/img_paul.jpg" alt="img_axel" class="d-block mx-auto m-4 shadow-lg" style="border-radius: 5px; width: 120px;">
+              <h4 class="fw-bold text-center cl-text bagelFatOne">Paul SCHEMITH</h4>
+              <ul class="list-inline text-center fs-3 mb-0">
+                <li class="list-inline-item">
+                  <a class="text-info" href="https://github.com/Monkey42Github" target="_blank" rel="nofollow">
+                    <i class="bi-github custom-icon p-2"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="text-info" href="https://www.linkedin.com/in/paul-schemith/" target="_blank" rel="nofollow">
+                    <i class="bi-linkedin custom-icon p-2"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="text-info" href="mailto:paulschemith95@gmail.com" target="_blank" rel="nofollow">
+                    <i class="bi-envelope-at-fill custom-icon p-2 fs-2"></i>
+                  </a>
+                </li>
+              </ul>
+              <p class="fw-light text-center p-2">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-3 pt-4">
+            <div class="p-3 rounded shadow bg-white">
+
+              <img src="img/img_youssef.JPG" alt="img_axel" class="d-block mx-auto m-4 shadow-lg" style="border-radius: 5px; width: 120px;">
+              <h4 class="fw-bold text-center cl-text bagelFatOne">Youssef BOUGHANMI</h4>
+              <ul class="list-inline text-center fs-3 mb-0">
+                <li class="list-inline-item">
+                  <a class="text-info" href="https://github.com/YoussefBOUGHANMI" target="_blank" rel="nofollow">
+                    <i class="bi-github custom-icon p-2"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="text-info" href="https://www.linkedin.com/in/youssef-boughanmi/" target="_blank" rel="nofollow">
+                    <i class="bi-linkedin custom-icon p-2"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="text-info" href="" target="_blank" rel="nofollow">
+                    <i class="bi-envelope-at-fill custom-icon p-2 fs-2"></i>
+                  </a>
+                </li>
+              </ul>
+              <p class="fw-light text-center p-2">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </section>
+
+
+    <section id="signIn" class="fade-in hidden-element">
+      <div id="signInDiv" class="container p-3">
+        <div class="row">
+          <div class="col-md-5 col-lg-4 my-4 mx-auto shadow px-3 py-4 rounded bg-white">
+            <h1 class="display-1 fw-bold text-info text-center mb-4">Sign In</h1>
+            <form method="POST" class="form-control border-0" id="signin-form">
+              <input type="text" class="form-control mb-3 border-info text-center text-info" autocomplete="username" id="signIn-username" name="username" placeholder="Username">
+              <input type="password" class="form-control mb-3 border-info text-center text-info" autocomplete="signIn-password" id="signIn-password" name="password" placeholder="Password">
+              <button id="signInBtn" class="btn btn-info text-white w-100 bagelFatOne mt-3" type="submit">Sign in</button>
+            </form>
+            <hr class="border-info mb-4">
+            <button id="42connectBtn" class="btn btn-outline-info bagelFatOne w-100" onclick="loginWith42()">Connect with 42</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="signUp" class="fade-in hidden-element">
+      <div id="signUpDiv" class="container p-3">
+        <div class="row">
+          <div class="col-md-5 col-lg-4 my-4 mx-auto shadow px-3 py-4 rounded bg-white">
+            <h1 class="display-1 fw-bold text-info text-center mb-4">Sign Up</h1>
+            <form method="post" class="form-control border-0" id="signup-form">
+              <input type="text" class="form-control mb-3 border-info text-center text-info" name="first_name" id="firstname" placeholder="First name">
+              <input type="text" class="form-control mb-3 border-info text-center text-info" name="last_name" id="lastname" placeholder="Last name">
+              <input type="text" class="form-control mb-3 border-info text-center text-info" id="username" name="username" aria-describedby="inputGroupPrepend2" placeholder="User name">
+              <input type="email" class="form-control mb-3 border-info text-center text-info" id="email" name="email" aria-describedby="emailHelp" placeholder="Email">
+              <input type="password" class="form-control mb-3 border-info text-center text-info" autocomplete="off" id="signUp-password" name="password" placeholder="Password">
+              <button id="signUpBtn" class="btn btn-info text-white w-100 bagelFatOne mt-3" type="submit">Sign up</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="verify-email" class="unvisible fade-in">
+      <div class="container mt-3">
+          <h1 class="display-3 text-info text-center fw-bold">ft_transcendence</h1>
+      <div>
+    </section>
+
+
+    <section id="dashboard" class="unvisible fade-in">
+      <!-- <h1 class="display-1 fw-bold text-info text-center">Dashboard</h1> -->
+      <div class="container p-md-5 rounded-bottom-4 bg-white" style="max-width: 1300px;">
+        <div class="row ">
+          <!-- Friends -->
+          <div class="col-sm-6 col-lg-3  mb-4">
+            <div class="card border-0 border-left-primary shadow">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="fw-bold text-primary text-uppercase mb-1 bagelFatOne">Friends</div>
+                    <div id="friendsNumberDash" class="h5 mb-0 fw-bold text-secondary bagelFatOne"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa-solid fa-people-group fa-2x text-primary"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Played -->
+          <div class="col-sm-6 col-lg-3  mb-4">
+            <div class="card border-0 border-left-info shadow">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="fw-bold text-info text-uppercase mb-1 bagelFatOne">Played</div>
+                    <div id="playedNumberDash" class="h5 mb-0 fw-bold text-secondary bagelFatOne"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-table-tennis fa-2x text-info"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Total Users -->
+          <div class="col-sm-6 col-lg-3  mb-4">
+            <div class="card border-0 border-left-warning shadow">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="fw-bold text-warning text-uppercase mb-1 bagelFatOne">Total Users</div>
+                    <div id="totalUsersDash" class="h5 mb-0 fw-bold text-secondary bagelFatOne"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa-solid fa-users-between-lines fa-2x text-warning"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Connected Users -->
+          <div class="col-sm-6 col-lg-3  mb-4">
+            <div class="card border-0 border-left-success shadow">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="fw-bold text-success text-uppercase mb-1 bagelFatOne">Connected</div>
+                    <div id="connectedUsersDash" class="h5 mb-0 fw-bold text-secondary bagelFatOne"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa-solid fa-plug-circle-bolt fa-2x text-success"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Victories -->
+          <div class="col-sm-6 col-lg-3  mb-4">
+            <div class="card border-0 border-left-success shadow">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="fw-bold text-success text-uppercase mb-1 bagelFatOne">Victories</div>
+                    <div id="victoriesNumberDash" class="h5 mb-0 fw-bold text-secondary bagelFatOne"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-trophy fa-2x text-success"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Defeat -->
+          <div class="col-sm-6 col-lg-3  mb-4">
+            <div class="card border-0 border-left-danger shadow">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="fw-bold text-danger text-uppercase mb-1 bagelFatOne">Defeats</div>
+                    <div id="defeatsNumberDash" class="h5 mb-0 fw-bold text-secondary bagelFatOne"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-trophy fa-flip-vertical fa-2x text-danger "></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Point Gained -->
+          <div class="col-sm-6 col-lg-3  mb-4">
+            <div class="card border-0 border-left-success shadow">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="fw-bold text-success text-uppercase mb-1 bagelFatOne">Point Gained</div>
+                    <div id="pointGainedNumberDash" class="h5 mb-0 fw-bold text-secondary bagelFatOne"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-smile fa-2x text-success"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Point Lost -->
+          <div class="col-sm-6 col-lg-3  mb-4">
+            <div class="card border-0 border-left-danger shadow">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="fw-bold text-danger text-uppercase mb-1 bagelFatOne">Point Lost</div>
+                    <div id="pointLostNumberDash" class="h5 mb-0 fw-bold text-secondary bagelFatOne"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-poo fa-2x text-danger"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Profile -->
+        <div class="row">
+          <div class="col-md-7">
+            <div class="card border-0 shadow mb-4">
+              <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-info text-center text-md-start">Profile</h5>
+              </div>
+              <div class="card-body">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-auto">
+                    <img id="avatar-img_dash" src="" alt="avatarUser" class="rounded-3 shadow" style="height: 120px;">
+                  </div>
+                  <div class="col-auto my-auto">
+                    <h5 id="userNameDash" class="text-info text-center text-uppercase fs-3 mb-2 mt-3 mt-md-0"></h5>
+                    <h5 id="firstNameDash" class="text-secondary text-center fs-5"></h5>
+                    <h5 id="lastNameDash" class="text-secondary text-center fs-5"></h5>
+                    <h5 id="emailDash" class="text-secondary text-center fs-5"></h5>
+                    <h5 id="mobileDash" class="text-secondary text-center fst-italic fs-6"></h5>
+                  </div>
+                </div>
+                <div class="col-auto mt-4">
+                  <hr class="border-secondary">
+                  <p id="joinedDash" class="lead fst-italic text-center fs-6 mb-0"><small></small></p>
+                  <p id="lastLoginDash" class="lead fst-italic text-center fs-6"><small></small></p>
+                  <hr class="border-secondary">
+                </div>
+                <div class="row w-100 mx-auto">
+                  <div class="col mt-2">
+                    <div class="mb-2 mx-auto" style="overflow-y: auto; height: 50px; max-width: 700px;">
+                      <p id="bioDash" class="px-2 lead fs-6 text-center" style="word-break: break-all;"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 mx-auto">
+            <div class="card border-0 shadow mb-4" >
+              <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-info text-center text-md-start">Win/Loose</h5>
+              </div>
+              <div class="card-body" >
+                <div class="chart-pie">
+                  <div id="chartPieTextInfo" class="p-4 hidden-element">
+                    <h5 class="font-weight-bold text-center text-secondary">You need to play at least once to see some information here</h5>
+                  </div>
+                  <canvas id="myPieChart" class="mt-3"></canvas>
+                </div>
+              </div>
+              <div class="ms-2 bagelFatOne text-secondary">
+                <i class="fas fa-circle text-success bagelFatOne"></i> Victories
+              </div>
+              <div class="ms-2 mb-2 bagelFatOne text-secondary">
+                <i class="fas fa-circle text-danger bagelFatOne"></i> Defeats
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Friends -->
+          <div class="col-12">
+            <div class="card border-0 shadow mb-4">
+              <div class="card-header py-3">
+                <div class="row d-flex align-items-center">
+                  <div class="col-sm-auto me-auto">
+                    <h5 class="text-center text-sm-start text-info mb-0">Friends</h5>
+                  </div>
+                  <div class="col-sm-auto ms-auto">
+                    <div class="row d-felx justify-content-center">
+                      <div class="col-auto px-0">
+                        <h5 id="seeFriendRequest" role="button" class="text-center mb-0 mt-2 mt-sm-0 hidden-element fade-in" onclick="seeFriendRequest()" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); color: rgb(0, 218, 4);"></h5>
+                      </div>
+                      <div class="col-auto d-flex justify-content-center" style="width: 40px;">
+                        <h5 id="seeFriendRequestCloseBtn" role="button" class="fs-6 text-danger hidden-element fade-in ms-0 mt-1 mb-0" onclick="closeFriendRequest()"><i class="fa-solid fa-square-xmark fs-5"></i></h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- Card Body -->
+                <div id="friendShipBody-dashboard" style="overflow-y: auto; overflow-x: hidden; min-height: 200px; max-height: 570px;">
+                  <div id="friendsTextInfo" class="p-5 hidden-element fade-in">
+                    <h5 class="font-weight-bold text-center text-secondary">You don't have any friend yet</h5>
+                  </div>
+                  <div id="requestDiv" class="row d-felx justify-content-center hidden-element fade-in"></div>
+                  <div id="friendShipList-dashboard" class="px-3 mb-3 fade-in"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Search For Friends -->
+          <div class="col-12" >
+            <div class="card border-0 shadow mb-4">
+              <div class="card-header py-2">
+                <div class="row d-flex justify-content-between">
+                  <div class="col-sm-auto my-auto pt-2">
+                    <h5 class=" text-info text-center text-sm-start">Search user</h5>
+                  </div>
+                  <div class="col-auto mx-auto mx-sm-0 me-sm-2 p-0 d-flex align-items-center">
+                    <i id="searchUserRefreshBtn" class="btn border-0 fa-solid fa-rotate-right fs-4 text-info me-1 p-0" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);"></i>
+                    <input id="searchUserInput" type="text" class="form-control form-control-sm border-info text-center text-info shadow" placeholder="Username">
+                    <i id="searchUserBtn" class="btn border-0 fa-solid fa-magnifying-glass fs-4 text-info ms-1 p-0" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body py-3" style="overflow-y: auto; overflow-x: hidden; min-height: 200px; max-height: 390px;">
+                <div id="searchFriend-cardArea" class="row px-3 d-flex justify-content-center fade-in"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col mx-auto mt-1">
+          <div class="card border-0 shadow mb-4">
+            <div class="card-header py-3">
+              <div class="row d-flex align-items-center">
+                <div class="col-sm-auto me-auto">
+                  <h5 class="text-center text-sm-start text-info mb-0">Games History</h5>
+                </div>
+              </div>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+              <div id="gameHistory-cardBody" style="overflow-y: auto; overflow-x: hidden; min-height: 350px; max-height: 500px;">
+                  <h5 id="messageGameHistory" class="p-5 fade-in fw-bold text-center text-secondary hidden-element">There is no history to display !</h5>
+                <div id="historyList" class="row px-3 d-felx justify-content-center fade-in "></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile" class="unvisible fade-in">
+
+      <div class="container bg-white p-2 px-4 pb-4 rounded-bottom-4 shadow-lg" style=" max-width: 600px;">
+        <h1 class="display-1 fw-bold text-info text-center">Profile</h1>
+        <hr class="px-5 text-info border-2">
+
+        <div id="avatarDiv">
+          <div id="avatarProfile" class="col d-flex justify-content-center">
+            <img id="avatar-img" src="" alt="avatarUser" class="rounded-3 my-2" style="max-width: 150px;">
+            <div class="d-flex align-items-end">
+              <i id="setAvatarIc" class="fs-5 text-secondary bi bi-gear cursor-pointer" onclick="handleAvatar_createForm()"></i>
+            </div>
+          </div>
+        </div>
+        <hr class="px-5 text-info border-2">
+        <div id="bioDiv">
+          <div id="bioProfileDiv" >
+            <div class="row p-2">
+              <h5  class="text-info text-center fs-4">Bio</h5>
+              <div class="col mx-auto rounded-2" style="overflow-y: auto; max-height: 60px; max-width: 600px;">
+                <p id="bioProfile" class="px-2 lead fs-6 text-center mb-0" style="word-break: break-all;"></p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <i id="setBioIc" class="fs-5 text-secondary bi bi-gear cursor-pointer" onclick="handleBio_createForm()"></i>
+            </div>
+          </div>
+        </div>
+        <hr class="px-5 text-info border-2">
+        <div id="infosDiv">
+            <div id="infosProfile">
+              <h5 id="userNameProfile" class="text-secondary text-center fs-4 text-uppercase"></h5>
+              <h5 id="firstNameProfile" class="text-info text-center fs-4"></h5>
+              <h5 id="lastNameProfile" class="text-info text-center fs-4"></h5>
+              <div class="d-flex justify-content-center">
+                <i id="setInfoIc" class="fs-5 text-secondary bi bi-gear cursor-pointer" onclick="handleInfos_createForm()"></i>
+              </div>
+            </div>
+        </div>
+        <div id="emailDiv">
+          <div id="emailProfileDiv">
+            <hr class="px-5 text-info border-2">
+
+            <h5 id="emailProfile" class="text-info text-center fs-4"></h5>
+            <div  class="d-flex justify-content-center">
+              <i id="setEmailIc" class="fs-5 text-secondary bi bi-gear cursor-pointer" onclick="handleEmail_createForm()"></i>
+            </div>
+          </div>
+        </div>
+        <div id="authDiv">
+          <hr class="px-5 text-info border-2">
+          <div id="authProfile" class="btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+            <div id="authTitleDiv">
+              <h6 id="authTitle" class="col text-center text-secondary fw-bold bagelFatOne">2FA Authentication</h6>
+            </div>
+            <div id="mobileDiv" class="d-flex justify-content-center pb-3">
+              <div id="mobileInfosDiv" class="d-flex justify-content-center">
+
+                <i id="mobileIcon" class="fs-4 text-info bi bi-telephone-plus-fill cursor-pointer me-3" onclick="mobileInput_createForm()"></i>
+                <p id="mobileNotVerified" class="fst-italic text-danger fw-light mt-1 bagelFatOne">not verified !</p>
+                <p id="mobileVerified" class="fst-italic text-info fw-bold mt-1 bagelFatOne"></p>
+              </div>
+
+            </div>
+            <div class="d-flex justify-content-center">
+              <i id="set2faIc" class="fs-5 text-secondary bi bi-gear cursor-pointer" onclick="handle2FA_createForm()"></i>
+            </div>
+          </div>
+        </div>
+
+        <div id="changeEraseDiv">
+          <hr class="px-5 text-info border-2">
+          <div id="changeEraseBtn" class="d-flex justify-content-center mt-4 mb-3">
+            <button id="changePasswordBtn" class="btn btn-sm fw-bold btn-outline-info me-3 bagelFatOne" onclick="handlePassword_createForm()">Change password</button>
+            <button id="eraseAccountBtn" class="btn btn-sm fw-bold btn-outline-danger bagelFatOne" onclick="eraseAccount_createForm()">Erase Account</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div id="mainChat" class="unvisible">
+      <div id="chat" class="p-2 fade-in chat-container " >
+        <div id="chat-area" class=" mb-2 " style="overflow-y: auto; overflow-x: hidden; height: 310px;">
+          <div id="chatProfile" class="bg-white p-2 m-2 rounded-3 shadow unvisible"></div>
+          <div id="chat-messages-general" class="px-2"></div>
+        </div>
+        <div id="mainChat-form" class="px-2">
+          <div  class="form-control border-0 p-0">
+            <input class="form-control border-info" id="message-input_general" type="text"  onkeydown="handleKeyPressGeneral(event)"></input>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="sessions" class="fade-in hidden-element">
+      <div class="container bg-white rounded-bottom-4 shadow " >
+        <h1 class="display-1 fw-bold text-info text-center">Rooms</h1>
+        <h5 id="sessionListeEmpty" class="fs-3 fw-bold text-secondary text-center mt-4">No rooms available</h5>
+        <div style="overflow-y: auto;  max-height: 450px;">
+          <div id="sessionsList" class="row p-3 d-flex justify-content-center"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tournament" class="fade-in hidden-element">
+      <div class="container bg-white rounded-bottom-4 shadow " >
+        <h1 class="display-1 fw-bold text-info text-center">Tournaments</h1>
+        <h5 id="tournamentListeEmpty" class="fs-3 fw-bold text-secondary text-center mt-4">No tournament available</h5>
+        <div style="overflow-y: auto;  max-height: 450px;">
+          <div id="tournamentList" class="row p-3 d-flex justify-content-center"></div>
+        </div>
+      </div>
+
+  </main>
+
+  <footer id="footer" class="bg-info fixed-bottom" >
+    <div class="container">
+      <div class="row d-flex justify-content-between">
+        <div class="col-auto d-flex justify-content-between">
+          <div class="col-auto p-1 image-container my-auto">
+            <a href="https://42nice.fr/" target="_blank" rel="nofollow">
+              <img src="img/42Nice-logo-white.png" alt="logo_42" class="custom-logo normal-logo" style="width: 110px;">
+              <img src="img/42Nice-logo-gray.png" alt="logo_42" class="custom-logo hover-logo" style="width: 110px;">
+            </a>
+          </div>
+          <div class="col-auto ms-5 my-auto">
+            <ul class="list-inline fs-3 my-auto">
+              <li class="list-inline-item">
+                <a class="text-white" href="https://www.linkedin.com/company/42nice/" target="_blank" rel="nofollow">
+                  <i class="bi-linkedin custom-icon-headerFooter "></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="text-white" href="https://www.instagram.com/42Nice/?hl=fr" target="_blank" rel="nofollow">
+                  <i class="bi-instagram  custom-icon-headerFooter "></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="text-white" href="https://twitter.com/42NiceSud" target="_blank" rel="nofollow">
+                  <i class="bi-twitter custom-icon-headerFooter "></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="displayChatBtn" class="col-auto fs-1 unvisible">
+          <i id="mainChatBtn" class="bi bi-chat-text-fill custom-icon-headerFooter me-2" role="button" onclick="showMainChat()"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script src="website/websiteUtils.js"></script>
+    <script src="website/websiteConfig.js"></script>
+    <script src="website/chat.js"></script>
+
+    <script src="register_login_logout/register_login_logout.js"></script>
+    <script src="register_login_logout/register_login_logout_utils.js"></script>
+
+
+    <script src="dashboard_profile/profile/manage_2FA.js"></script>
+    <script src="dashboard_profile/profile/manage_2FA_utils.js"></script>
+    <script src="dashboard_profile/profile/updateUserInfos_createForms.js"></script>
+    <script src="dashboard_profile/profile/updateUserInfos_comAPI.js"></script>
+    <script src="dashboard_profile/profile/profile.js"></script>
+    <script src="dashboard_profile/profile/manageFriends.js"></script>
+    <script src="dashboard_profile/dashboard/Chart.js"></script>
+    <script src="dashboard_profile/dashboard/chart-pie.js"></script>
+    <script src="dashboard_profile/dashboard/dashboard.js"></script>
+    <script src="dashboard_profile/dashboard/dashboardUtils.js"></script>
+    <script src="dashboard_profile/commonUtils.js"></script>
+
+    <script src="pong_game/js/handle_UI.js"></script>
+    <script src="pong_game/js/gameConfig.js"></script>
+    <script src="pong_game/js/create_gameSettings_menu.js"></script>
+    <script src="pong_game/js/tournament/create_MatchMaking_menu.js"></script>
+    <script src="pong_game/js/tournament/tournament_config.js"></script>
+    <script src="pong_game/js/gameUtils.js"></script>
+    <script src="pong_game/js/inputUtils.js"></script>
+    <script src="pong_game/js/pong.js"></script>
+    <script src="qrcodejs/qrcode.js"></script>
+
+
+    <script src="https://kit.fontawesome.com/d4cc5cee10.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <script src="pong_game/js/serverUtils.js"></script>
+
+    <script src="pong_game/js/generalChat.js"></script>
+    <script src="pong_game/js/sessionsChat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-peer@9.11.1/simplepeer.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+    <script src="pong_game/js/pong_ia.js"></script>
+    <script src="pong_game/js/create_tournament_UI.js"></script>
+    <script src="pong_game/js/tournament/matchmaking_online.js"></script>
+</body>
+
+</html>

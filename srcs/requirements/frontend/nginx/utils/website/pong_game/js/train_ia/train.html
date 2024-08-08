@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulation de fichier</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+</head>
+<body>
+    <form id="form">
+        <label for="niveau">Choisissez un niveau :</label>
+        <select id="niveau" name="niveau">
+            <option value="1">Niveau 1</option>
+            <option value="2">Niveau 2</option>
+            <option value="3">Niveau 3</option>
+        </select><br><br>
+        Choisissez un nombre d'epochs : <input type="number" id="nbEpochs">
+        <br><br>
+        <input type="file" id="fileInput">
+        <br><br>
+    </form>
+    <script src="./train.js"> </script>
+</body>
+</html>

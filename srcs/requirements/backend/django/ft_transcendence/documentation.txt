@@ -1,0 +1,115 @@
+NOTE : to_connect, pass token in header
+
+API Urls :
+
+api/account/login/  --> you get a token access + token refresh + user infos
+	connected : NO
+	method : POST
+	advice : - login with username, password
+			 - 2fa ? login with username, password, otp or totp
+
+api/account/logout/  --> you have to drop your token when logout
+	connected : YES
+	method : GET
+
+api/account/register/ --> register a new user
+	connected : NO
+	method : POST
+	advice : - register with username, password, email, first_name, last_name
+
+api/account/email/verify/ --> verify the email and activate your account
+	connected : NO
+	method : GET
+	advice : - verify with token : "token"
+
+api/account/mobile/verify/ -> verify the mobile
+	connected : YES
+	method : GET
+	advice : - verify with otp : "otp"
+
+api/account/profile/ --> manage your account
+	connected : YES
+	method : GET PATCH DELETE
+	advice : - for patch method :
+				- need password to update
+				- friend to ask user to friendship
+				- two_fa to enabled or disabled
+				- others to update
+
+api/account/profile/<str:username>/ --> get user basic infos
+	connected : NO
+	method : GET
+
+api/account
+	connected : SuperUser
+	method : GET
+
+api/account/token/refresh/ --> get a new token access with token refresh
+	connected : YES
+	method : POST
+
+api/account/token/verify/ --> verify access token validity
+	connected : NO
+	method : POST
+	advice : key : "token"
+
+api/account/profile/avatar/<str:avatar>/ --> Download the avatar
+	connected : YES
+	method : GET
+
+api/account/profile/avatar/ --> update avatar
+	connected : YES
+	method : PUT
+
+api/account/otp/ --> get otp for login when 2fa activated
+	connected : NO
+	method : POST
+	advice : - get otp with username, password, send_method ("sms" or "email" or "application")
+
+api/account/o/token/ --> get token access with the code given in url for login with 42
+	connected : NO
+	method : GET
+	advice : - get tokens with 'code'
+
+
+
+
+api/friend_management/  --> to ask for a friend, post [friend_name] in data sent, the friend must
+							patch this url to accept the request [requester_name] in data sent, after that both have new friend
+	connected : YES
+	method : GET, POST, PATCH, DELETE
+	advice : - post : 'friend' to ask friend to friendship
+			 - patch : 'friend' and 'is_accepted(bool)' to accept request
+			 - delete : 'friend' to delete
+
+
+
+
+api/chat/  --> Get the discussion of 2 users (requester must be one of the 2 users and connected)
+	connected : YES
+	method : GET
+	advice : - specify user1 and user2
+
+api/chat/create/ --> first you need to create the discussion before the first message
+	connected : YES
+	method : POST
+	advice : - specify user1 and user2
+
+api/chat/message/  --> put a message in a discussion
+	connected : YES
+	method : PUT
+	advice : - specify chat_id and message
+
+
+api/game/  --> Create a game
+	connected : ADMIN
+	method : POST GET
+	advice : - need player_one, player_two(if not game_type = ia), game_type (ia/pvp/tournament), difficulty(easy/medium/hard)
+
+api/game/id --> view a game or update the game
+	connected : YES
+	method : GET
+
+	connected : ADMIN
+	method : PATCH
+	advice : - need id, winner, final_score (format "d:d")
