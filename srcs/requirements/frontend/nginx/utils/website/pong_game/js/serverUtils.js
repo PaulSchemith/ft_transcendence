@@ -16,7 +16,7 @@ function createPeer(sessionId)
 function waitForWebSocketConnection(username) {
     return new Promise((resolve, reject) => {
         if (!socket || socket.readyState !== WebSocket.OPEN)
-                     socket = new WebSocket('wss://10.12.5.4:8002/ws/general/?user_username=' + username);
+                     socket = new WebSocket('wss://localhost:8002/ws/general/?user_username=' + username);
 
         // username = username;
         socket.addEventListener('open', () => {

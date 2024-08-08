@@ -7,7 +7,7 @@ let connected = false;
 
 
 //****** DOMAIN URLS *********************
-const domainPath = "https://10.12.5.4:8002";
+const domainPath = "https://localhost:8002";
 // const domainPath = 'https://transcendence42.ddns.net:8002';
 
 if ('ontouchstart' in window || navigator.maxTouchPoints) {

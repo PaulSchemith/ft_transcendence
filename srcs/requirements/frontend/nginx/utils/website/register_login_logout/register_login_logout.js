@@ -138,7 +138,7 @@ document.getElementById('validLogout').addEventListener('click', function() {
 // LOGIN WITH 42 ******************************************************************************************
 function loginWith42() {
   // console.log('connect with 42 function');
-  const oauthUrl = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-44e47265c9b8312f83a47d720211e265bef85a1c8fc632f8786fe9dcdade34d1&redirect_uri=https%3A%2F%2F10.12.5.4%3A8002&response_type=code';
+  const oauthUrl = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-44e47265c9b8312f83a47d720211e265bef85a1c8fc632f8786fe9dcdade34d1&redirect_uri=https%3A%2F%2Flocalhost%3A8002&response_type=code';
   window.location.href = oauthUrl;
 }
 
